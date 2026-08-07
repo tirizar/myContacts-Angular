@@ -1,0 +1,63 @@
+<!-- Header Navigation -->
+<header class="navbar">
+    <div class="navbar-brand">
+        myContacts <span class="divider">|</span> Lookup
+    </div>
+    <div class="user-panel">
+        <div class="welcome">Welcome &lt;username&gt;</div>
+        <div><a href="#" class="exit-link">EXIT</a></div>
+    </div>
+</header>
+
+<!-- Main Container -->
+<main class="container">
+
+    <!-- Controls Bar -->
+    <section class="controls-bar">
+        <div class="search-group">
+            <label for="filter" class="filter-label">Filter:</label>
+            <input type="text" id="filter" class="search-input" />
+            <button type="button" class="btn-search">Search</button>
+        </div>
+        <div class="action-links">
+            <a href="#">EXPORT</a>
+            <a href="#">IMPORT</a>
+            <a href="#">+ ADD NEW</a>
+        </div>
+    </section>
+
+    <!-- Search Results Section Header -->
+    <div class="section-header">
+        <span class="section-title">Search Results</span>
+
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th class="col-name">Name <span class="sort-icon">^</span></th>
+                <th>Phone</th>
+                <th>Fax</th>
+                <th>eMail</th>
+                <th>Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (onecontact of contacts; track onecontact.ContactId) {
+            <tr>
+                <td class="col-name">
+                    <a href="#" class="view-link">view</a>
+                    {{ onecontact.Name }}
+                </td>
+                <td>{{ onecontact.Phone }}</td>
+                <td>{{ onecontact.Fax }}</td>
+                <td>{{ onecontact.Email }}</td>
+                <td>{{ onecontact.LastUpdateDate | date:'MM/dd/yyyy hh:mm a' }}</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+
+</main>
