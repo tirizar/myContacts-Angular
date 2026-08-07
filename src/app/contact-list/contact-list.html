@@ -44,19 +44,18 @@
             </tr>
         </thead>
         <tbody>
-            @for (onecontact of contacts; track onecontact.ContactId) {
+            @for (onecontact of contacts; track onecontact.contactId) {
             <tr>
                 <td class="col-name">
                     <a href="#" class="view-link">view</a>
-                    {{ onecontact.Name }}
+                    {{ onecontact.name }}
                 </td>
-                <td>{{ onecontact.Phone }}</td>
-                <td>{{ onecontact.Fax }}</td>
-                <td>{{ onecontact.Email }}</td>
-                <td>{{ onecontact.LastUpdateDate | date:'MM/dd/yyyy hh:mm a' }}</td>
+                <td>{{ onecontact.phone }}</td>
+                <td>{{ onecontact.fax }}</td>
+                <td>{{ onecontact.email }}</td>
+                <td>{{ onecontact.lastUpdateDate | date:'MM/dd/yyyy hh:mm a' }}</td>
             </tr>
             }
-
         </tbody>
     </table>
 
