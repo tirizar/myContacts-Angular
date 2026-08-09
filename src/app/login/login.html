@@ -1,0 +1,155 @@
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+        background-color: #ffffff;
+        color: #333333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Top Blue Navigation Bar */
+    .navbar {
+        background-color: #0095ff;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 24px;
+    }
+
+    .navbar-brand {
+        font-size: 19px;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+    }
+
+    .navbar-brand .divider {
+        margin: 0 6px;
+        font-weight: 300;
+    }
+
+    /* Main Centered Container */
+    .main-wrapper {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 440px;
+        padding: 0 20px;
+    }
+
+    /* Section Header with Line */
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .section-title {
+        color: #124b89;
+        font-weight: 700;
+        font-size: 16px;
+        white-space: nowrap;
+        margin-right: 12px;
+    }
+
+    .section-line {
+        flex-grow: 1;
+        height: 1px;
+        background-color: #bebebe;
+    }
+
+    /* Form Group & Controls */
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        color: #777777;
+        font-size: 14px;
+    }
+
+    .username-input {
+        width: 100%;
+        height: 34px;
+        padding: 4px 10px;
+        border: 1px solid #adadad;
+        border-radius: 4px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .username-input:focus {
+        border-color: #0095ff;
+    }
+
+    .actions-group {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-login {
+        background-color: #0095ff;
+        color: #ffffff;
+        border: none;
+        height: 34px;
+        padding: 0 28px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .btn-login:hover {
+        background-color: #0082e0;
+    }
+</style>
+
+<!-- Header Navigation -->
+<header class="navbar">
+    <div class="navbar-brand">
+        myContacts <span class="divider">|</span> Sign In
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-wrapper">
+    <div class="login-card">
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-title">User Login</span>
+        </div>
+
+        <!-- Login Form -->
+        <form method="post" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" id="username" name="username" class="username-input"
+                    placeholder="Enter your username" required autofocus [(ngModel)]="username" />
+            </div>
+
+            <div class="actions-group">
+                <button type="submit" class="btn-login">Login</button>
+            </div>
+        </form>
+
+    </div>
+</main>
+
+<router-outlet />

@@ -1,25 +1,39 @@
 import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { Contact } from '../contact';
+import { CommonModule } from '@angular/common';
+import { Contact } from '../models/contact';
 import { ContactsService } from '../contacts-service';
+import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-contact-list',
   standalone: true,
-  imports: [DatePipe],
+  imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './contact-list.html',
   styleUrl: './contact-list.css',
 })
 export class ContactList implements OnInit {
 
+  username: string = '';
   contacts: Contact[] = []
   
-  constructor(private contactsService: ContactsService, private cdRef: ChangeDetectorRef) {
+  constructor(private contactsService: ContactsService, private cdRef: ChangeDetectorRef, private cookieService: CookieService) {
     console.log('ContactList component constructor called');
   }
 
   ngOnInit(): void {
+    // Fetch the username from the cookie
+    this.username = this.cookieService.get('username');
+    //if the username is empty, redirect to login page
+    if (!this.username) {
+      console.log('Username not found in cookie, redirecting to login page');
+      window.location.href = '/login';
+      return;
+    }
+
     console.log('ContactList component initialized');
+    this.username = this.cookieService.get('username');
     this.getContacts();
     console.log('Contacts after getContacts call:', this.contacts);
   }

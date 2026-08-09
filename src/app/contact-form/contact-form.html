@@ -1,0 +1,56 @@
+<header class="navbar">
+    <div class="navbar-brand">myContacts <span>| Add New Entry</span></div>
+    <div class="user-info">
+        Welcome &lt;username&gt;
+        <a routerLink="/logout">EXIT</a>
+    </div>
+</header>
+
+<!-- Form Container -->
+<main class="container">
+    <div class="form-header">
+        <h2 class="form-title">Contact Information</h2>
+        <a href="#" class="back-link">&larr; Back to Lookup</a>
+    </div>
+
+    <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <div class="form-grid">
+            <!-- Name Fields -->
+            <div class="form-group">
+                <label for="name">Full Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="e.g. Raul Gonzalez Rodriguez" required
+                    [(ngModel)]="contact.name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">eMail Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="info@assertus.com" required
+                    [(ngModel)]="contact.email">
+            </div>
+
+            <!-- Contact Details -->
+            <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="(787) 000-0000" required
+                    [(ngModel)]="contact.phone">
+            </div>
+
+            <div class="form-group">
+                <label for="fax">Fax Number</label>
+                <input type="tel" id="fax" name="fax" placeholder="(787) 000-0000" [(ngModel)]="contact.fax">
+            </div>
+
+            <div class="form-group full-width">
+                <label for="notes">Notes <span class="required">*</span></label>
+                <input type="text" id="notes" name="notes" placeholder="e.g. any notes" required
+                    [(ngModel)]="contact.notes">
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Contact</button>
+        </div>
+    </form>
+</main>

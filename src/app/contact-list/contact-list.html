@@ -4,8 +4,8 @@
         myContacts <span class="divider">|</span> Lookup
     </div>
     <div class="user-panel">
-        <div class="welcome">Welcome &lt;username&gt;</div>
-        <div><a href="#" class="exit-link">EXIT</a></div>
+        <div class="welcome">Welcome {{username}}</div>
+        <div><a routerLink="/logout">EXIT</a></div>
     </div>
 </header>
 
@@ -20,9 +20,11 @@
             <button type="button" class="btn-search">Search</button>
         </div>
         <div class="action-links">
-            <a href="#">EXPORT</a>
-            <a href="#">IMPORT</a>
-            <a href="#">+ ADD NEW</a>
+
+            <a routerLink="/export">EXPORT</a>
+            <a routerLink="/import">IMPORT</a>
+            <a routerLink="/contacts/new">+ ADD NEW</a>
+
         </div>
     </section>
 

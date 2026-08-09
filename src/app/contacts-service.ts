@@ -1,6 +1,6 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Contact } from './contact';
+import { Contact } from './models/contact';
 import { Observable } from 'rxjs';
 
 @Service()
