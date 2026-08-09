@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { CookieService } from 'ngx-cookie-service';
 import { ContactsService } from '../contacts-service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,6 +19,8 @@ import { CommonModule } from '@angular/common';
 export class ContactForm implements OnInit {
 
   username: string = '';
+
+  isEditing: boolean = false;
   
   contact: Contact = {
     contactId: 0,
@@ -32,7 +35,12 @@ export class ContactForm implements OnInit {
 
   errorMessage: string = '';
 
-  constructor(private cookieService: CookieService, private contactsService: ContactsService) {
+  constructor(
+    private cookieService: CookieService,
+    private contactsService: ContactsService,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+  ) {
     console.log('ContactForm component constructor called');
   }
 
@@ -45,10 +53,54 @@ export class ContactForm implements OnInit {
       window.location.href = '/login';
       return;
     }
+    console.log('ContactForm component: ngOnInit called');
+
+    this.route.paramMap.subscribe((params) => {
+      console.log('Route parameters:', params);
+      const contactId = params.get('id');
+      if (contactId) {
+        console.log('Editing contact with ID:', contactId);
+        this.isEditing = true;
+        this.contactsService.getContactById(+contactId).subscribe({
+          next: (contactFromAPI) => {
+            this.contact = { ...contactFromAPI };
+            console.log('Contact retrieved from API:', this.contact);
+            this.cdr.detectChanges();
+          },
+          error: (error) => {
+            console.error('Error retrieving contact:', error);
+            this.errorMessage = error?.error?.message || error?.message || 'An error occurred while retrieving the contact.';
+          }
+        });
+      }
+      else {
+        console.log('Creating a new contact');
+        this.isEditing = false;
+      }
+    });
+
   }
 
   onSubmit(): void {
+    this.contact.lastUpdateUserName = this.username;
     console.log('Form submitted:', this.contact);
+    if(this.isEditing){
+      this.contactsService.updateContact(this.contact).subscribe({
+        next: () => {
+          console.log('Contact updated successfully');
+          // Redirect or update the contact list as needed
+          window.location.href = '/contacts';
+        },
+        error: (error) => {
+          console.error('Error message:', error.message);
+          console.error('Error updating contact:', error);
+
+          this.errorMessage = error?.error?.message || error?.message || 'An error occurred while updating the contact.';
+        }
+      });
+
+    }
+    else{
     this.contactsService.createContact(this.contact).subscribe({
       next: () => {
         console.log('Contact created successfully');
@@ -62,6 +114,7 @@ export class ContactForm implements OnInit {
         this.errorMessage = error?.error?.message || error?.message || 'An error occurred while creating the contact.';
       }
     });
+  }
   }
 
 

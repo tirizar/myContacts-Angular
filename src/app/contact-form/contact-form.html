@@ -1,5 +1,5 @@
 <header class="navbar">
-    <div class="navbar-brand">myContacts <span>| Add New Entry</span></div>
+    <div class="navbar-brand">myContacts</div>
     <div class="user-info">
         Welcome {{username}}
         <a routerLink="/logout">EXIT</a>
@@ -9,8 +9,7 @@
 <!-- Form Container -->
 <main class="container">
     <div class="form-header">
-        <h2 class="form-title">Contact Information</h2>
-        <a href="#" class="back-link">&larr; Back to Lookup</a>
+        <h2 class="form-title">{{ isEditing ? 'Edit' : 'Create' }} Contact</h2>
     </div>
 
     <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
@@ -51,7 +50,7 @@
         <!-- Action Buttons -->
         <div class="form-actions">
             <button type="button" class="btn btn-secondary" routerLink="/contacts">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save Contact</button>
+            <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Create' }} Contact</button>
         </div>
     </form>
 </main>
