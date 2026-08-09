@@ -49,7 +49,7 @@
             @for (onecontact of contacts; track onecontact.contactId) {
             <tr>
                 <td class="col-name">
-                    <a href="#" class="view-link">view</a>
+                    <a [routerLink]="['/contacts', 'edit', onecontact.contactId]" class="view-link">view</a>
                     {{ onecontact.name }}
                 </td>
                 <td>{{ onecontact.phone }}</td>
