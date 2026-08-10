@@ -37,7 +37,7 @@
             <div class="form-group">
                 <label for="email">eMail Address</label>
                 <input #emailModel="ngModel" type="email" email id="email" name="email" maxlength="50"
-                    placeholder="info@assertus.com" [(ngModel)]="contact.email">
+                    placeholder="info@assertus.com" [(ngModel)]="contact.eMail">
                 <div class="validationError" *ngIf="submitted && emailModel.errors?.['email']">* Please enter a valid
                     email address</div>
             </div>

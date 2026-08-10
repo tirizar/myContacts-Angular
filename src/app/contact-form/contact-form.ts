@@ -25,7 +25,7 @@ export class ContactForm implements OnInit {
   contact: Contact = {
     contactId: 0,
     name: '',
-    email: '',
+    eMail: '',
     phone: '',
     fax: '',
     notes: '',

@@ -15,7 +15,7 @@ export class ContactsService {
         return {
             contactId: apiContact.contactId ?? apiContact.ContactId ?? 0,
             name: apiContact.name ?? apiContact.Name ?? '',
-            email: apiContact.email ?? apiContact.Email ?? '',
+            eMail: apiContact.eMail ?? apiContact.Email ?? '',
             phone: apiContact.phone ?? apiContact.Phone ?? '',
             fax: apiContact.fax ?? apiContact.Fax ?? '',
             notes: apiContact.notes ?? apiContact.Notes ?? '',
