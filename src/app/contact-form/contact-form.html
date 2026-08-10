@@ -12,7 +12,7 @@
         <h2 class="form-title">{{ isEditing ? 'Edit' : 'Create' }} Contact</h2>
     </div>
 
-    <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+    <form class="contact-form" (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm" novalidate>
         <div *ngIf="errorMessage" class="alert alert-error">
             {{ errorMessage }}
         </div>
@@ -20,25 +20,33 @@
             <!-- Name Fields -->
             <div class="form-group">
                 <label for="name">Full Name <span class="required">*</span></label>
-                <input type="text" id="name" name="name" placeholder="e.g. Raul Gonzalez Rodriguez" required
-                    [(ngModel)]="contact.name">
+                <input #nameModel="ngModel" type="text" id="name" name="name" placeholder="e.g. Raul Gonzalez Rodriguez"
+                    required maxlength="50" [(ngModel)]="contact.name">
+                <div class="validationError" *ngIf="submitted && nameModel.errors?.['required']">* Full Name is required
+                </div>
             </div>
             <div class="form-group">
                 <label for="phone">Phone Number <span class="required">*</span></label>
-                <input type="tel" id="phone" name="phone" placeholder="(787) 000-0000" mask="(000) 000-0000" required
-                    [(ngModel)]="contact.phone">
+                <input #phoneModel="ngModel" type="tel" id="phone" name="phone" placeholder="(787) 000-0000"
+                    mask="(000) 000-0000" maxlength="14" required [(ngModel)]="contact.phone">
+                <div class="validationError" *ngIf="submitted && phoneModel.errors?.['required']">* Phone Number is
+                    required
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="email">eMail Address</label>
-                <input type="email" id="email" name="email" placeholder="info@assertus.com" [(ngModel)]="contact.email">
+                <input #emailModel="ngModel" type="email" email id="email" name="email" maxlength="50"
+                    placeholder="info@assertus.com" [(ngModel)]="contact.email">
+                <div class="validationError" *ngIf="submitted && emailModel.errors?.['email']">* Please enter a valid
+                    email address</div>
             </div>
 
             <!-- Contact Details -->
             <div class="form-group">
                 <label for="fax">Fax Number</label>
-                <input type="tel" id="fax" name="fax" placeholder="(787) 000-0000" mask="(000) 000-0000"
-                    [(ngModel)]="contact.fax">
+                <input #faxModel="ngModel" type="tel" id="fax" name="fax" placeholder="(787) 000-0000"
+                    mask="(000) 000-0000" maxLength="14" [(ngModel)]="contact.fax">
             </div>
 
             <div class="form-group full-width">

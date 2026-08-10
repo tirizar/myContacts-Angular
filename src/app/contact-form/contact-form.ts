@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Contact } from '../models/contact';
 import { NgxMaskDirective } from 'ngx-mask';
 import { CookieService } from 'ngx-cookie-service';
@@ -44,6 +44,8 @@ export class ContactForm implements OnInit {
     console.log('ContactForm component constructor called');
   }
 
+  submitted: boolean = false;
+
   ngOnInit(): void {
     // Fetch the username from the cookie
     this.username = this.cookieService.get('username');
@@ -81,7 +83,13 @@ export class ContactForm implements OnInit {
 
   }
 
-  onSubmit(): void {
+  onSubmit(contactForm: NgForm): void {
+    this.submitted = true;
+    if (contactForm.invalid) {
+      console.log('Form submission blocked: validation errors present.');
+      return;
+    }
+
     this.contact.lastUpdateUserName = this.username;
     console.log('Form submitted:', this.contact);
     if(this.isEditing){

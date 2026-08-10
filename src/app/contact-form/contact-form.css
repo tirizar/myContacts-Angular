@@ -32,6 +32,10 @@
             font-weight: 300;
             opacity: 0.9;
         }
+        
+        .validationError {
+            color: #842029;
+        }
 
         .user-info {
             font-size: 13px;
@@ -105,7 +109,11 @@
         }
 
         label .required {
-            color: #d9534f;
+            color: #842029;
+        }
+
+        .required {
+            color: #842029;
         }
 
         input[type="text"],

@@ -185,3 +185,14 @@
             margin-left: 4px;
             display: inline-block;
         }
+
+        .user-info {
+            font-size: 13px;
+        }
+
+        .user-info a {
+            color: #ffffff;
+            margin-left: 15px;
+            text-decoration: underline;
+            font-weight: bold;
+        }
