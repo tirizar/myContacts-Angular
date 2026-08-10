@@ -30,6 +30,13 @@ export class ContactsService {
         );
     }
 
+    searchContacts(searchTerm: string): Observable<Contact[]> { 
+        const url = `${this.apiURL}/search?query=${searchTerm}`;
+        return this.http.get<any[]>(url).pipe(
+            map((contacts) => contacts.map((contact) => this.mapContact(contact)))
+        );
+    }
+
     getContactById(contactId: number): Observable<Contact> {
         const url = `${this.apiURL}/${contactId}`;
         return this.http.get<any>(url).pipe(

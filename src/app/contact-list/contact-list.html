@@ -14,24 +14,23 @@
 
     <!-- Controls Bar -->
     <section class="controls-bar">
-        <div class="search-group">
-            <label for="filter" class="filter-label">Filter:</label>
-            <input type="text" id="filter" class="search-input" />
-            <button type="button" class="btn-search">Search</button>
-        </div>
+        <form class="search-form" (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm" novalidate>
+            <div class="search-group">
+                <label for="filter" class="filter-label">Filter:</label>
+                <input name="searchTerm" type="text" id="searchTerm" class="search-input" [(ngModel)]="searchTerm" />
+                <button type="submit" class="btn-search">Search</button>
+            </div>
+        </form>
         <div class="action-links">
-
             <a routerLink="/export">EXPORT</a>
             <a routerLink="/import">IMPORT</a>
             <a routerLink="/contacts/new">+ ADD NEW</a>
-
         </div>
     </section>
 
     <!-- Search Results Section Header -->
     <div class="section-header">
         <span class="section-title">Search Results</span>
-
     </div>
 
     <!-- Data Table -->
