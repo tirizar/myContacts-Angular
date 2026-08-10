@@ -33,9 +33,6 @@ export class ContactList implements OnInit {
       window.location.href = '/login';
       return;
     }
-
-    console.log('ContactList component initialized');
-    this.username = this.cookieService.get('username');
     this.getContacts();
     console.log('Contacts after getContacts call:', this.contacts);
   }

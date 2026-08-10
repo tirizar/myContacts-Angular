@@ -58,4 +58,14 @@ export class ContactsService {
         return this.http.delete<void>(url);
     }
 
+    uploadCsv(file: File): Observable<any> {
+        const url = `${this.apiURL}/upload-csv`;
+        const formData = new FormData();
+    
+        // 'file' is the key name your backend API expects
+        formData.append('file', file, file.name);
+
+        return this.http.post(url, formData);
+    }
+
 }

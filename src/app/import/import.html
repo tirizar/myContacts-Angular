@@ -1,0 +1,45 @@
+<header class="navbar">
+    <div class="navbar-brand">myContacts</div>
+    <div class="user-info">
+        Welcome {{username}}
+        <a routerLink="/logout">EXIT</a>
+    </div>
+</header>
+
+<!-- Form Container -->
+<main class="container">
+    <div class="form-header">
+        <h2 class="form-title">Import Contacts</h2>
+    </div>
+
+    <form class="import-form" (ngSubmit)="onUpload(importForm)" #importForm="ngForm" novalidate>
+        <div *ngIf="errorMessage" class="alert alert-error">
+            {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+        </div>
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="phone">Select File (CSV) <span class="required">*</span></label>
+                <input #selectedFileModel="ngModel" type="file" id="selectedFile" name="selectedFile" accept=".csv"
+                    required [(ngModel)]="selectedFile" (change)="onFileSelected($event)">
+                <div class="validationError" *ngIf="submitted && selectedFileModel.errors?.['required']">* File
+                    selection
+                    is
+                    required.
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" routerLink="/contacts">Cancel</button>
+            <!-- Upload Button -->
+            <button type="submit" class="btn btn-primary">
+                Submit
+            </button>
+        </div>
+    </form>
+</main>
