@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Login {
   private cookieService = inject(CookieService);
+  private router = inject(Router);
 
   username: string = '';
   submitted: boolean = false;
@@ -27,7 +28,7 @@ export class Login {
     // Store the username in a cookie
     this.cookieService.set('username', this.username);
     // Redirect to the contacts page after successful login
-    window.location.href = '/contacts';
+    this.router.navigate(['/contacts']);
   }
 
 }

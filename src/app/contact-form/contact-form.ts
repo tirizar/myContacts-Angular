@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Contact } from '../models/contact';
@@ -39,7 +39,8 @@ export class ContactForm implements OnInit {
     private cookieService: CookieService,
     private contactsService: ContactsService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
     console.log('ContactForm component constructor called');
   }
@@ -52,7 +53,7 @@ export class ContactForm implements OnInit {
     //if the username is empty, redirect to login page
     if (!this.username) {
       console.log('Username not found in cookie, redirecting to login page');
-      window.location.href = '/login';
+      this.router.navigate(['/login']);
       return;
     }
     console.log('ContactForm component: ngOnInit called');
@@ -97,7 +98,7 @@ export class ContactForm implements OnInit {
         next: () => {
           console.log('Contact updated successfully');
           // Redirect or update the contact list as needed
-          window.location.href = '/contacts';
+          this.router.navigate(['/contacts']);
         },
         error: (error) => {
           console.error('Error message:', error.message);
@@ -113,7 +114,7 @@ export class ContactForm implements OnInit {
       next: () => {
         console.log('Contact created successfully');
         // Redirect or update the contact list as needed
-        window.location.href = '/contacts';
+        this.router.navigate(['/contacts']);
       },
       error: (error) => {
         console.error('Error message:', error.message);

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Contact } from '../models/contact';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ContactsService } from '../contacts-service';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -20,7 +20,7 @@ export class ContactList implements OnInit {
   contacts: Contact[] = [];
   searchTerm: string = '';
   
-  constructor(private contactsService: ContactsService, private cdRef: ChangeDetectorRef, private cookieService: CookieService) {
+  constructor(private contactsService: ContactsService, private cdRef: ChangeDetectorRef, private cookieService: CookieService, private router: Router) {
     console.log('ContactList component constructor called');
   }
 
@@ -30,7 +30,7 @@ export class ContactList implements OnInit {
     //if the username is empty, redirect to login page
     if (!this.username) {
       console.log('Username not found in cookie, redirecting to login page');
-      window.location.href = '/login';
+      this.router.navigate(['/login']);
       return;
     }
     this.getContacts();
@@ -65,6 +65,28 @@ export class ContactList implements OnInit {
       });
     }
   }
+
+  onExport(event: Event): void {
+    event.preventDefault();
+    console.log('Export clicked');
+
+    this.contactsService.getXmlFile().subscribe({
+      next: (xmlContent: string) => {
+        const blob = new Blob([xmlContent], { type: 'application/xml' });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = 'contacts.xml';
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => {
+        console.error('Export failed', error);
+        alert('Failed to export XML file.');
+      }
+    });
+  }
+
 
   
 

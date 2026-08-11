@@ -1,11 +1,12 @@
 import { inject, Service } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Contact } from './models/contact';
 import { Observable, map } from 'rxjs';
 
 @Service()
 export class ContactsService {
-    private apiURL = 'https://localhost:7139/api/contacts';
+    //private apiURL = 'https://localhost:7139/api/contacts';
+    private readonly apiURL = 'https://swsuser-001-site9.etempurl.com/api/Contacts';
 
     private readonly http = inject(HttpClient);
 
@@ -67,5 +68,16 @@ export class ContactsService {
 
         return this.http.post(url, formData);
     }
+
+    // Requesting the XML payload as text
+    getXmlFile(): Observable<string> {
+        const headers = new HttpHeaders({ 'Accept': 'application/xml' });
+        const url = `${this.apiURL}/export-xml`;
+        return this.http.get(url, { 
+        headers: headers,
+        responseType: 'text' // CRITICAL: Tells Angular not to parse as JSON
+        });
+    }
+
 
 }

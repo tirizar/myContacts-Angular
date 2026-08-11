@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CookieService} from 'ngx-cookie-service';
-import { RouterLink } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ContactsService } from '../contacts-service';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-import',
@@ -23,7 +21,7 @@ export class Import {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private contactsService: ContactsService, private cdRef: ChangeDetectorRef, private cookieService: CookieService) {
+  constructor(private contactsService: ContactsService, private cdRef: ChangeDetectorRef, private cookieService: CookieService, private router: Router) {
     console.log('Import component constructor called');
   }
 
@@ -33,7 +31,7 @@ export class Import {
     //if the username is empty, redirect to login page
     if (!this.username) {
       console.log('Username not found in cookie, redirecting to login page');
-      window.location.href = '/login';
+      this.router.navigate(['/login']);
       return;
     }
   }
